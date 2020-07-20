@@ -19,4 +19,8 @@ class QueryBuilderCategoryRepository extends BaseEloquentRepository implements C
                 ->paginate(5);
         return $categories;
     }
+
+    public function productsByCategoryId($id){
+        return DB::table('products')->where('category_id', $id)->get();
+    }
 }
