@@ -1,15 +1,15 @@
 <?php
 
-Route::any('admin/products/search', 'Admin\ProductController@search')->name('products.search');
+Route::group(['prefix'=>'admin', 'namespace'=>'admin', 'middleware' => 'auth'], function(){
+    Route::any('products/search', 'ProductController@search')->name('products.search');
+    Route::resource('products', 'ProductController');
 
-Route::resource('admin/products', 'Admin\ProductController');
+    Route::any('categories/search', 'CategoryController@search')->name('categories.search');
+    Route::resource('categories', 'CategoryController');
 
-Route::get('admin', function(){
-})->name('admin');
-
-Route::any('admin/categories/search', 'Admin\CategoryController@search')->name('categories.search');
-
-Route::resource('admin/categories', 'Admin\CategoryController');
+    Route::get('/', function(){
+    })->name('admin');
+});
 
 Route::get('/', function () {
     return view('welcome');
